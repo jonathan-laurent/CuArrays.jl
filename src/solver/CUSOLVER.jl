@@ -1,7 +1,7 @@
 module CUSOLVER
 
 using ..CuArrays
-using ..CuArrays: active_context, _getindex, unsafe_free!
+using ..CuArrays: active_context, _getindex, unsafe_free!, libcusolver
 
 using ..CUBLAS: cublasFillMode_t, cublasOperation_t, cublasSideMode_t, cublasDiagType_t
 using ..CUSPARSE: cusparseMatDescr_t
@@ -14,21 +14,6 @@ using CUDAdrv: CUstream
 import CUDAnative
 
 using CEnum
-
-const libcusolver = if Sys.iswindows()
-    # no ccall by soname, we need the filename
-    # NOTE: we discover the full path here, while only the wordsize and toolkit versions
-    #       would have been enough to construct "cusolver64_10.dll"
-    toolkit = find_toolkit()
-    path = find_cuda_library("cusolver", toolkit)
-    if path === nothing
-        error("Could not find libcusolver")
-    end
-    basename(path)
-else
-    # ccall by soname; CuArrays.__init__ will have populated Libdl.DL_LOAD_PATH
-    "libcusolver"
-end
 
 # core library
 include("libcusolver_common.jl")

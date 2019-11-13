@@ -16,6 +16,17 @@ using Libdl
 using Requires
 
 
+const depsfile = joinpath(dirname(dirname(@__FILE__)), "deps", "deps.jl")
+if isfile(depsfile)
+    include(depsfile)
+else
+    error("CuArrays is not properly installed. Please run Pkg.build(\"CuArrays\")")
+end
+
+const libcudnn = Sys.iswindows() ? "cudnn" : "libcudnn"
+const libcutensor = Sys.iswindows() ? "cutensor" : "libcutensor"
+
+
 ## source code includes
 
 include("memory.jl")
@@ -55,9 +66,8 @@ const __initialized__ = Ref(false)
 functional() = __initialized__[]
 
 export has_cudnn, has_cutensor
-const libraries = Dict{String,Union{String,Nothing}}()
-has_cudnn() = libraries["cudnn"] !== nothing && CUDNN.libcudnn !== nothing
-has_cutensor() = libraries["cutensor"] !== nothing && CUTENSOR.libcutensor !== nothing
+has_cudnn() = !in(Libdl.dlopen_e(libcudnn), (C_NULL, nothing))
+has_cutensor() = !in(Libdl.dlopen_e(libcutensor), (C_NULL, nothing))
 
 function __init__()
     silent = parse(Bool, get(ENV, "JULIA_CUDA_SILENT", "false"))
@@ -70,34 +80,9 @@ function __init__()
         return
     end
 
-    # if any dependent GPU package failed, expect it to have logged an error and bail out
-    CUDAdrv.functional() || return
-    CUDAnative.functional() || return
-
     precompiling = ccall(:jl_generating_output, Cint, ()) != 0
     try
-        # discover libraries
-        toolkit = find_toolkit()
-        for name in ("cublas", "cusparse", "cusolver", "cufft", "curand", "cudnn", "cutensor")
-            mod = getfield(CuArrays, Symbol(uppercase(name)))
-            lib = Symbol("lib$name")
-            path = find_cuda_library(name, toolkit)
-            libraries[name] = path
-            if path !== nothing
-                dir = dirname(path)
-                if !(dir in Libdl.DL_LOAD_PATH)
-                    push!(Libdl.DL_LOAD_PATH, dir)
-                end
-            end
-        end
-
-        # library dependencies
-        CUBLAS.version()
-        CUSPARSE.version()
-        CUSOLVER.version()
-        CUFFT.version()
-        CURAND.version()
-        # CUDNN and CUTENSOR are optional
+        check_deps()
 
         # library compatibility
         if has_cutensor()
