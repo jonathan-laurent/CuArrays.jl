@@ -23,7 +23,6 @@ else
     error("CuArrays is not properly installed. Please run Pkg.build(\"CuArrays\")")
 end
 
-const libcudnn = Sys.iswindows() ? "cudnn" : "libcudnn"
 const libcutensor = Sys.iswindows() ? "cutensor" : "libcutensor"
 
 
@@ -80,8 +79,16 @@ function __init__()
         return
     end
 
-    precompiling = ccall(:jl_generating_output, Cint, ()) != 0
+    buildlog = joinpath(dirname(@__DIR__), "deps", "build.log")
     try
+        # if we're not using BinaryBuilder, we can't be sure of everything at build-time
+        if !precompiling
+            if !use_binarybuilder
+                @warn """Automatic installation of the CUDA libraries failed; see $buildlog for more details
+                         or call Pkg.build("CuArrays") to try again. Otherwise, you will need to install CUDA and make sure it is discoverable."""
+            end
+        end
+
         check_deps()
 
         # library compatibility
