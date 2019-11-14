@@ -11,24 +11,24 @@ const resources = Dict(
     v"10.1" =>
         Dict(
             MacOS(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda101.x86_64-apple-darwin14.tar.gz", "245a0664660baa56692637dc538afe18bcd6d2070c4db5d2791a776978864807"),
-            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda101.x86_64-linux-gnu.tar.gz", "f4c1afb3350d121b080a886a19f0a891ec99a611cab5074c04986026c7d6618d"),
+            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda101.x86_64-linux-gnu.tar.gz", "abaacd936474526bafd390ad9eb2de9749f9bb400e9d9dffa3ef41d0b1b8c319"),
             Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda101.x86_64-w64-mingw32.tar.gz", "b69695f116f2fd3d962ecbec0c88cf9835940b025432bc8766f2d012a01135b2"),
         ),
     v"10.0" =>
         Dict(
             MacOS(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda100.x86_64-apple-darwin14.tar.gz", "ec8f2525a3eba29168d00ffca9e504cde348bfa29bc784299a3d9363238bc27b"),
-            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda100.x86_64-linux-gnu.tar.gz", "ec8f2525a3eba29168d00ffca9e504cde348bfa29bc784299a3d9363238bc27b"),
+            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda100.x86_64-linux-gnu.tar.gz", "5a47e076bf508db5a8c18bf37e6827c13faedc665d5b0322f6bdbab297d56f5a"),
             Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda100.x86_64-w64-mingw32.tar.gz", "75ba4bbcbe2cb08a85ac85b187043bf3285bb47d62e5162f1d1cf1bdb47c0a58"),
         ),
     v"9.2" =>
         Dict(
-            MacOS(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda92.x86_64-apple-darwin14.tar.gz", "ec8f2525a3eba29168d00ffca9e504cde348bfa29bc784299a3d9363238bc27b"),
-            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda92.x86_64-linux-gnu.tar.gz", "9d4b6dcc8de94ae6f79b0790c7cd30764a0c79c06f7b8f34afd63d7572fb00e1"),
+            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda92.x86_64-linux-gnu.tar.gz", "3f53342ddb8561d7434cd700fea5d382f6b8640c1fc9e3756fb259841fdef35c"),
+            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda92.x86_64-apple-darwin14.tar.gz", "e18014d3baa8abc6aba11162332f9658163599fc833ba6b59b9093be4f12aef1"),
         ),
     v"9.0" =>
         Dict(
-            MacOS(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda90.x86_64-apple-darwin14.tar.gz", "ec8f2525a3eba29168d00ffca9e504cde348bfa29bc784299a3d9363238bc27b"),
-            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda90.x86_64-linux-gnu.tar.gz", "3f53342ddb8561d7434cd700fea5d382f6b8640c1fc9e3756fb259841fdef35c"),
+            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda90.x86_64-linux-gnu.tar.gz", "9d4b6dcc8de94ae6f79b0790c7cd30764a0c79c06f7b8f34afd63d7572fb00e1"),
+            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda90.x86_64-apple-darwin14.tar.gz", "5e64681cd1022ed382126f0d76442c7063cec58052f3b4582fc80f6a8d5253b8"),
         ),
 )
 
