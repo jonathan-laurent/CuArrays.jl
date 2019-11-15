@@ -6,29 +6,29 @@ const verbose = "--verbose" in ARGS
 @assert isempty([a for a in ARGS if a != "--verbose"])
 
 # online sources we can use
-const bin_prefix = "https://github.com/JuliaGPU/CUDABuilder/releases/download/v0.1.1"
+const bin_prefix = "https://github.com/JuliaGPU/CUDABuilder/releases/download/v0.1.3"
 const resources = Dict(
-    v"10.1" =>
+    v"9.0" =>
         Dict(
-            MacOS(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda101.x86_64-apple-darwin14.tar.gz", "245a0664660baa56692637dc538afe18bcd6d2070c4db5d2791a776978864807"),
-            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda101.x86_64-linux-gnu.tar.gz", "abaacd936474526bafd390ad9eb2de9749f9bb400e9d9dffa3ef41d0b1b8c319"),
-            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda101.x86_64-w64-mingw32.tar.gz", "b69695f116f2fd3d962ecbec0c88cf9835940b025432bc8766f2d012a01135b2"),
-        ),
-    v"10.0" =>
-        Dict(
-            MacOS(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda100.x86_64-apple-darwin14.tar.gz", "ec8f2525a3eba29168d00ffca9e504cde348bfa29bc784299a3d9363238bc27b"),
-            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda100.x86_64-linux-gnu.tar.gz", "5a47e076bf508db5a8c18bf37e6827c13faedc665d5b0322f6bdbab297d56f5a"),
-            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda100.x86_64-w64-mingw32.tar.gz", "75ba4bbcbe2cb08a85ac85b187043bf3285bb47d62e5162f1d1cf1bdb47c0a58"),
+            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-CUDA9.0-0.1.3.x86_64-linux-gnu.tar.gz", "b0f76625209b033462c7f8b7f3117140c2191f8d169149f507476a7410bfd19d"),
+            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-CUDA9.0-0.1.3.x86_64-w64-mingw32.tar.gz", "eeb1c6ae4a4973feb8814bf175daf06b5250addc1979c492358f9007741c6bd6"),
         ),
     v"9.2" =>
         Dict(
-            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda92.x86_64-linux-gnu.tar.gz", "3f53342ddb8561d7434cd700fea5d382f6b8640c1fc9e3756fb259841fdef35c"),
-            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda92.x86_64-apple-darwin14.tar.gz", "e18014d3baa8abc6aba11162332f9658163599fc833ba6b59b9093be4f12aef1"),
+            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-CUDA9.2-0.1.3.x86_64-linux-gnu.tar.gz", "b688f2bdbf0fc46bca74d9d0f10cc3f3092881cff84193912fdf887a53d85cc5"),
+            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-CUDA9.2-0.1.3.x86_64-w64-mingw32.tar.gz", "c2082d230835a31490c4253aa390cc50f443bec996acc84f2735f59b40d82787"),
         ),
-    v"9.0" =>
+    v"10.0" =>
         Dict(
-            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-cuda90.x86_64-linux-gnu.tar.gz", "9d4b6dcc8de94ae6f79b0790c7cd30764a0c79c06f7b8f34afd63d7572fb00e1"),
-            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-cuda90.x86_64-apple-darwin14.tar.gz", "5e64681cd1022ed382126f0d76442c7063cec58052f3b4582fc80f6a8d5253b8"),
+            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-CUDA10.0-0.1.3.x86_64-linux-gnu.tar.gz", "96d38f86f8d0b2a7d106cccdcebad0cae10958bf0ea7e3f0f5fd426488f25a2c"),
+            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-CUDA10.0-0.1.3.x86_64-w64-mingw32.tar.gz", "c62b3398fa8ae659c03548d2cad6ad82b3b5f6e48357ea662693bc90a75bddf0"),
+            MacOS(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-CUDA10.0-0.1.3.x86_64-apple-darwin14.tar.gz", "8869fa21387e2703ba57c9749f5683ddc790e7b7145735b053b0828e1ff18ab4"),
+        ),
+    v"10.1" =>
+        Dict(
+            Linux(:x86_64, libc=:glibc) => ("$bin_prefix/CUDNN.v7.6.5-CUDA10.1-0.1.3.x86_64-linux-gnu.tar.gz", "09f41c36d61141fa7cc126e157d0eb189493fd76ea528945859ed45f2d00b2b7"),
+            Windows(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-CUDA10.1-0.1.3.x86_64-w64-mingw32.tar.gz", "d092416272e2f2078c064cc0624d7ced72fc29fc34f58c3af14693ab3dd6d8a6"),
+            MacOS(:x86_64) => ("$bin_prefix/CUDNN.v7.6.5-CUDA10.1-0.1.3.x86_64-apple-darwin14.tar.gz", "9ba01c82b9f3d108cb021b5e6a86560d6ac47701295c6be29479a71a35a61a87"),
         ),
 )
 
