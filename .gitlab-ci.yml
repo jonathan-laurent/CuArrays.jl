@@ -3,11 +3,10 @@ include:
 
 image: ubuntu:bionic
 
-variables: &variables
+variables:
   JULIA_CUDA_VERBOSE: 'true'
   NVIDIA_VISIBLE_DEVICES: 'all'
   NVIDIA_DRIVER_CAPABILITIES: 'compute,utility'
-  BINARYBUILDER_STORAGE_DIR: 'downloads'
 
 
 # Julia versions
@@ -34,7 +33,6 @@ julia:1.2:
     - .test
   image: juliagpu/cuda:10.1-cudnn7-cutensor-devel-ubuntu18.04
   variables:
-    <<: *variables
     CI_THOROUGH: 'true'
   tags:
     - nvidia
@@ -65,7 +63,6 @@ pool:none:
   tags:
     - nvidia
   variables:
-    <<: *variables
     CUARRAYS_MEMORY_POOL: 'none'
 
 pool:simple:
@@ -75,7 +72,6 @@ pool:simple:
   tags:
     - nvidia
   variables:
-    <<: *variables
     CUARRAYS_MEMORY_POOL: 'simple'
 
 pool:split:
@@ -85,7 +81,6 @@ pool:split:
   tags:
     - nvidia
   variables:
-    <<: *variables
     CUARRAYS_MEMORY_POOL: 'split'
 
 
@@ -99,7 +94,6 @@ cuda:10.1:
     - .julia:1.2
     - .test
   variables:
-    <<: *variables
     JULIA_CUDA_VERSION: '10.1'
   tags:
     - nvidia
@@ -109,7 +103,6 @@ cuda:10.0:
     - .julia:1.2
     - .test
   variables:
-    <<: *variables
     JULIA_CUDA_VERSION: '10.0'
   tags:
     - nvidia
@@ -119,7 +112,6 @@ cuda:9.2:
     - .julia:1.2
     - .test
   variables:
-    <<: *variables
     JULIA_CUDA_VERSION: '9.2'
   tags:
     - nvidia
@@ -132,7 +124,6 @@ cuda:local:
     - .test
   image: nvidia/cuda:10.1-devel-ubuntu18.04
   variables:
-    <<: *variables
     JULIA_CUDA_USE_BINARYBUILDER: 'false'
   tags:
     - nvidia
@@ -141,9 +132,8 @@ cuda:none:
   extends:
     - .julia:1.2
     - .test
-  image: ubuntu:bionic
   variables:
-    JULIA_CUDA_VERBOSE: 'true'
+    JULIA_CUDA_USE_BINARYBUILDER: 'false'
   script:
     - julia -e 'using InteractiveUtils;
                 versioninfo()'
@@ -166,9 +156,9 @@ flux:
     - .test
   tags:
     - nvidia
-  image: juliagpu/cuda:10.1-cudnn7-cutensor-devel-ubuntu18.04
   script:
-    - export FLUX="$HOME/.julia/dev/Flux"
+    - export JULIA_DEPOT_PATH="$CI_PROJECT_DIR/.julia/"
+    - export FLUX=".julia/dev/Flux"
     - julia -e 'using Pkg;
                 Pkg.develop("Flux");'
     - julia --project -e 'using Pkg;
